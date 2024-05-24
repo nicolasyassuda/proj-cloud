@@ -18,9 +18,5 @@ class MyUser(HttpUser):
         response = self.client.get("api/submit-form")
         if response.status_code == 200:
             data = response.json()
-            if data:
-                print("GET request returned data:", data)
-            else:
-                print("GET request did not return any data")
         else:
             print("GET request failed with status code:", response.status_code)

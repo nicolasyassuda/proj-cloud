@@ -81,7 +81,7 @@ Agora seu ambiente já esta configurado.
     Após rodar este comando dentro das pasta deste projeto ao qual vc clonou:
 
     ```
-    aws cloudformation create-stack --stack-name MinhaStack --template-body file://scrip.yaml --parameters ParameterKey=KeyName,ParameterValue=<NomeDaSuaChave> --capabilities CAPABILITY_NAMED_IAM
+    aws cloudformation create-stack --stack-name MinhaStack --template-body file://script.yaml --parameters ParameterKey=KeyName,ParameterValue=<NomeDaSuaChave> --capabilities CAPABILITY_NAMED_IAM
 
     ```
     * Lembresse de substituir o < NomeDaSuaChave >.
@@ -93,5 +93,46 @@ Agora seu ambiente já esta configurado.
     ```
     aws cloudformation describe-stacks --stack-name MinhaStack --query "Stacks[0].Outputs"
     ```
+    - Ficará retornando nulo enquanto não for criado.
+
+    ```
+    [
+        {
+            "OutputKey": "LoadBalancerDNSName",
+            "OutputValue": "MinhaS-MyLoa-gsTk95Zh7YQK-365330849.us-east-2.elb.amazonaws.com",
+            "Description": "DNS Name of the Application Load Balancer"
+        }
+    ]
+    ```
+    - Retornará algo assim quando estiver pronto.
 
     *observação caso ao acessar o DNS do load-balancer apresente o erro 502 isso ocorre porque as vezes a aplicação demora um pouco para subir.
+
+
+
+# Teste de carga:
+
+Basta rodar os comandos a seguir (dentro da pasta do projeto baixado):
+- pré-requisito ter python já instalado.
+
+```
+pip install locust
+```
+
+```
+locust -f locust.py
+```
+Isso abrirá uma aplicação no http://localhost:8089
+
+Selecione o numero de usuarios desejado e qual o crescimento de acessos destes usuarios, e coloque o DNS pego na etapa anterior e selecione o tempo que o teste de carga irá rodar.
+![alt text](/images/locust-0.png)
+
+
+![alt text](/images/locust-1.png)
+![alt text](/images/locust-2.png)
+![alt text](/images/locust-3.png)
+
+
+Podemos ver que algumas falhas ocorreram porem isso é devido ao banco de dados ter um limitador de 100 ReadUnits e 100 WriteUnits isso foi feito pois isso é apenas uma aplicação teste mas na verdade deveria ser feito um calculo de quantos usuarios acessam a aplicação por segundo e quantas requisições eles fazem para poder configurar um limitador que sustenta toda essa carga, se deixarmos on-demand poderiamos sofrer riscos como ataques de negação de serviço oque faria a cobrança de chamadas por banco de dados fosse extratosferica.
+
+# Custos:
