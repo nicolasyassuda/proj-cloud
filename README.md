@@ -136,3 +136,15 @@ Selecione o numero de usuarios desejado e qual o crescimento de acessos destes u
 Podemos ver que algumas falhas ocorreram porem isso é devido ao banco de dados ter um limitador de 100 ReadUnits e 100 WriteUnits isso foi feito pois isso é apenas uma aplicação teste mas na verdade deveria ser feito um calculo de quantos usuarios acessam a aplicação por segundo e quantas requisições eles fazem para poder configurar um limitador que sustenta toda essa carga, se deixarmos on-demand poderiamos sofrer riscos como ataques de negação de serviço oque faria a cobrança de chamadas por banco de dados fosse extratosferica.
 
 # Custos:
+
+
+[Excel com os custos em diversos casos](aws_cost_calculator.xlsx)
+
+A ideia de podermos analisar diversos casos é que um mesmo codigo de infraestrutura pode ser utilizados para situações diferente portanto é importatante visualizarmos dessa forma.
+
+No exemplo apresentado no **Excel** podemos ver que o limitador da aplicação não são as maquinas EC2 mas sim as leituras feitas no banco de dados, isso foi possivel ser analisado ao olhar o comportamento e consumo das instancias ao fazer o teste de carga.
+
+
+# Arquitetura:
+
+![alt text](image.png)

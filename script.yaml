@@ -94,7 +94,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       UserData:
         Fn::Base64: !Sub |
-          #!/bin/bash
+          #!/bin/bashQ
           sudo apt-get update -y
           sudo apt-get install -y git
 
@@ -127,7 +127,7 @@ Resources:
     Properties:
       LaunchConfigurationName: !Ref MyLaunchConfig
       MinSize: '1'
-      MaxSize: '10'
+      MaxSize: '5'
       DesiredCapacity: '2'
       TargetGroupARNs:
         - !Ref MyTargetGroup
