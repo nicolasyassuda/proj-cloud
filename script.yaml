@@ -127,7 +127,7 @@ Resources:
     Properties:
       LaunchConfigurationName: !Ref MyLaunchConfig
       MinSize: '1'
-      MaxSize: '3'
+      MaxSize: '10'
       DesiredCapacity: '2'
       TargetGroupARNs:
         - !Ref MyTargetGroup
