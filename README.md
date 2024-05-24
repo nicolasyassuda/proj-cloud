@@ -53,3 +53,45 @@ Para criar as credenciais programáticas na AWS, siga os seguintes passos:
 
 # Configuração do Ambiente:
 
+Para que a key seja utilizada no **AWS CLI** precisamos configura-la:
+
+    aws configure
+
+
+Após rodar este comando irá pedir para preencher um formulario:
+
+    AWS Access Key ID [None]: <Coloque Sua Access Key ID>
+    AWS Secret Access Key [None]: <Coloque Sua Secret Key aqui>
+    Default region name [None]: us-east-2
+    Default output format [None]:
+
+
+Agora seu ambiente já esta configurado.
+
+# Subir a Infraestrutura:
+
+
+- Criar os Pares de chave para poder criar a infraestrutura:
+    
+    ```
+
+    aws ec2 create-key-pair --key-name <NomeDaSuaChave> --query 'KeyMaterial' --output text > <NomeDaSuaChave>.pem
+
+    ```
+    Após rodar este comando dentro das pasta deste projeto ao qual vc clonou:
+
+    ```
+    aws cloudformation create-stack --stack-name MinhaStack --template-body file://scrip.yaml --parameters ParameterKey=KeyName,ParameterValue=<NomeDaSuaChave> --capabilities CAPABILITY_NAMED_IAM
+
+    ```
+    * Lembresse de substituir o < NomeDaSuaChave >.
+
+- Agora é só esperar a sua infraestrutura subir.
+
+    - Para descobrir o dns do load-balancer para acessar a aplicação basta rodar este comando.
+
+    ```
+    aws cloudformation describe-stacks --stack-name MinhaStack --query "Stacks[0].Outputs"
+    ```
+
+    *observação caso ao acessar o DNS do load-balancer apresente o erro 502 isso ocorre porque as vezes a aplicação demora um pouco para subir.

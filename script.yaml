@@ -256,12 +256,6 @@ Resources:
         - !Ref DynamoDBAccessRole
 
 Outputs:
-  VPCId:
-    Description: "ID of the newly created VPC"
-    Value: !Ref MyVPC
-  SubnetId:
-    Description: "ID of the newly created Subnet"
-    Value: !Ref MySubnet
   LoadBalancerDNSName:
     Description: "DNS Name of the Application Load Balancer"
     Value: !GetAtt MyLoadBalancer.DNSName
