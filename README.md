@@ -47,6 +47,9 @@ Para criar as credenciais programáticas na AWS, siga os seguintes passos:
 
 7. Anote a chave de acesso e o segredo em um local seguro, pois eles serão necessários para autenticar as chamadas à API da AWS.
 
-8. Após anotar as informações, clique em "Close" (Fechar).
 
-Certifique-se de que as credenciais programáticas estejam configuradas corretamente no ambiente em que você está executando o código.
+**Tome muito cuidado com essas credenciais pois elas poder causar um problema de milhões (literalmente). Se o invasor tiver acesso as suas credenciais ele pode fazer tudo que seu usuario tiver permissão, criar maquinas, provisionar servidores, criar dominios, etc...**
+
+
+# Configuração do Ambiente:
+
